@@ -1,4 +1,4 @@
-@extends('products.layout')
+@extends('layout')
 
 @section('content')
     <div class="row">
@@ -23,7 +23,15 @@
         </div>
     @endif
 
-    <form action="{{ route('products.store') }}" method="POST">
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{ $message }}</strong>
+        </div>
+        <img src="images/{{ Session::get('image') }}">
+    @endif
+
+    <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="row mt-2">
@@ -37,6 +45,17 @@
                 <div class="form-group">
                     <label class="form-label"><strong>Detail:</strong></label>
                     <textarea class="form-control" style="height:150px" name="detail" placeholder="Detail"></textarea>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 mb-3">
+                <div class="form-group">
+                    <label class="form-label" for="inputImage">Image:</label>
+                    <input type="file" name="image" id="inputImage"
+                        class="form-control @error('image') is-invalid @enderror">
+
+                    @error('image')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center mt-3">

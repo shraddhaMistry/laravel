@@ -1,10 +1,10 @@
-@extends('products.layout')
+@extends('layout')
 
 @section('content')
-    <div class="row">
+    <div class="row mt-3">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Laravel 10 CRUD Example from scratch - ItSolutionStuff.com</h2>
+                <h2>Laravel 10 CRUD Example</h2>
             </div>
             <div class="pull-right">
                 <a class="btn btn-success" href="{{ route('products.create') }}"> Create New Product</a>
@@ -21,6 +21,7 @@
     <table class="table table-bordered mt-3">
         <tr>
             <th>No</th>
+            <th>Image</th>
             <th>Name</th>
             <th>Details</th>
             <th width="280px">Action</th>
@@ -28,6 +29,7 @@
         @foreach ($products as $product)
             <tr>
                 <td>{{ ++$i }}</td>
+                <td><img src="../../images/{{ $product->image }}" style="height: 60px;width:60px"></td>
                 <td>{{ $product->name }}</td>
                 <td>{{ $product->detail }}</td>
                 <td>

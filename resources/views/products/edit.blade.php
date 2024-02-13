@@ -1,4 +1,4 @@
-@extends('products.layout')
+@extends('layout')
 
 @section('content')
     <div class="row">
@@ -23,7 +23,7 @@
         </div>
     @endif
 
-    <form action="{{ route('products.update', $product->id) }}" method="POST">
+    <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -39,6 +39,20 @@
                 <div class="form-group">
                     <strong>Detail:</strong>
                     <textarea class="form-control" style="height:150px" name="detail" placeholder="Detail">{{ $product->detail }}</textarea>
+                </div>
+            </div>
+            @if (isset($product->image))
+                <img src="../../images/{{ $product->image }}" style="height: 250px;width:300px">
+            @endif
+            <div class="col-xs-12 col-sm-12 col-md-12 mb-3">
+                <div class="form-group">
+                    <label class="form-label" for="inputImage"><strong>Image:</strong> </label>
+                    <input type="file" name="image" id="inputImage"
+                        class="form-control @error('image') is-invalid @enderror">
+
+                    @error('image')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center mt-3">
